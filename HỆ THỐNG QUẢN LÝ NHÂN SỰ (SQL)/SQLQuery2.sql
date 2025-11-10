@@ -1,0 +1,39 @@
+﻿-- 2. Tạo 4 bảng (MaNV đã sửa thành CHAR(10))
+CREATE TABLE PhongBan (
+    MaPB CHAR(5) PRIMARY KEY,
+    TenPB NVARCHAR(50) NOT NULL UNIQUE,
+    DiaDiem NVARCHAR(100)
+);
+
+CREATE TABLE ChucVu (
+    MaCV CHAR(5) PRIMARY KEY,
+    TenCV NVARCHAR(50) NOT NULL UNIQUE,
+    HeSoCV FLOAT DEFAULT 1.0 CHECK (HeSoCV >= 1.0)
+);
+
+CREATE TABLE NhanVien (
+    MaNV CHAR(10) PRIMARY KEY,        -- ĐÃ SỬA THÀNH 10 KÝ TỰ
+    HoTen NVARCHAR(50) NOT NULL,
+    NgaySinh DATE CHECK (NgaySinh <= GETDATE()),
+    GioiTinh BIT DEFAULT 1,
+    DiaChi NVARCHAR(100),
+    DienThoai VARCHAR(15),
+    Email VARCHAR(50),
+    MaPB CHAR(5) NOT NULL,
+    MaCV CHAR(5) NOT NULL,
+    CONSTRAINT FK_NhanVien_PhongBan FOREIGN KEY (MaPB) REFERENCES PhongBan(MaPB),
+    CONSTRAINT FK_NhanVien_ChucVu FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV)
+);
+
+CREATE TABLE BangLuong (
+    MaLuong INT IDENTITY(1,1) PRIMARY KEY,
+    MaNV CHAR(10) NOT NULL,
+    ThangNam DATE NOT NULL,
+    LuongCoBan MONEY NOT NULL CHECK (LuongCoBan >= 0),
+    PhuCap MONEY DEFAULT 0,
+    TamUng MONEY DEFAULT 0,
+    ThucLanh AS (LuongCoBan + PhuCap - TamUng) PERSISTED,
+    CONSTRAINT FK_BangLuong_NhanVien FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
+    CONSTRAINT UK_BangLuong UNIQUE (MaNV, ThangNam)
+);
+GO

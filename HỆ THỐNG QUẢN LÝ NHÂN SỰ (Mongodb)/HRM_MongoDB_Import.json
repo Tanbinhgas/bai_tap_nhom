@@ -1,0 +1,128 @@
+[
+  {
+    "_id": "NV2025001",
+    "hoTen": "Nguyễn Văn A",
+    "ngaySinh": "1990-05-15",
+    "gioiTinh": true,
+    "diaChi": "Hà Nội",
+    "dienThoai": "0901234567",
+    "email": "nva@company.com",
+    "phongBan": {
+      "maPB": "PB01",
+      "tenPB": "Phòng Kỹ thuật",
+      "diaDiem": "Tầng 5 - Tòa A"
+    },
+    "chucVu": {
+      "maCV": "CV02",
+      "tenCV": "Trưởng phòng",
+      "heSoCV": 2.5
+    },
+    "luong": [
+      {
+        "thangNam": "2025-11-01",
+        "luongCoBan": 20000000,
+        "phuCap": 5000000,
+        "tamUng": 3000000,
+        "thucLanh": 22000000
+      },
+      {
+        "thangNam": "2025-10-01",
+        "luongCoBan": 19000000,
+        "phuCap": 5000000,
+        "tamUng": 2000000,
+        "thucLanh": 21000000
+      }
+    ]
+  },
+  {
+    "_id": "NV2025002",
+    "hoTen": "Trần Thị B",
+    "ngaySinh": "1995-08-20",
+    "gioiTinh": false,
+    "diaChi": "TP.HCM",
+    "dienThoai": "0912345678",
+    "email": "ttb@company.com",
+    "phongBan": {
+      "maPB": "PB02",
+      "tenPB": "Phòng Hành chính",
+      "diaDiem": "Tầng 3 - Tòa A"
+    },
+    "chucVu": {
+      "maCV": "CV01",
+      "tenCV": "Nhân viên",
+      "heSoCV": 1.0
+    },
+    "luong": [
+      {
+        "thangNam": "2025-11-01",
+        "luongCoBan": 12000000,
+        "phuCap": 2000000,
+        "tamUng": 1000000,
+        "thucLanh": 13000000
+      }
+    ]
+  },
+  {
+    "_id": "NV2025003",
+    "hoTen": "Lê Văn C",
+    "ngaySinh": "1988-03-10",
+    "gioiTinh": true,
+    "diaChi": "Đà Nẵng",
+    "dienThoai": "0923456789",
+    "email": "lvc@company.com",
+    "phongBan": {
+      "maPB": "PB03",
+      "tenPB": "Phòng Marketing",
+      "diaDiem": "Tầng 4 - Tòa B"
+    },
+    "chucVu": {
+      "maCV": "CV02",
+      "tenCV": "Trưởng phòng",
+      "heSoCV": 2.5
+    },
+    "luong": [
+      {
+        "thangNam": "2025-11-01",
+        "luongCoBan": 22000000,
+        "phuCap": 6000000,
+        "tamUng": 4000000,
+        "thucLanh": 24000000
+      }
+    ]
+  },
+  {
+    "_id": "NV2025004",
+    "hoTen": "Phạm Thị D",
+    "ngaySinh": "1997-12-25",
+    "gioiTinh": false,
+    "diaChi": "Cần Thơ",
+    "dienThoai": "0934567890",
+    "email": "ptd@company.com",
+    "phongBan": {
+      "maPB": "PB01",
+      "tenPB": "Phòng Kỹ thuật",
+      "diaDiem": "Tầng 5 - Tòa A"
+    },
+    "chucVu": {
+      "maCV": "CV01",
+      "tenCV": "Nhân viên",
+      "heSoCV": 1.0
+    },
+    "luong": [
+      {
+        "thangNam": "2025-11-01",
+        "luongCoBan": 11000000,
+        "phuCap": 1500000,
+        "tamUng": 0,
+        "thucLanh": 12500000
+      },
+      {
+        "thangNam": "2025-10-01",
+        "luongCoBan": 10000000,
+        "phuCap": 1500000,
+        "tamUng": 500000,
+        "thucLanh": 11000000
+      }
+    ]
+  }
+]
