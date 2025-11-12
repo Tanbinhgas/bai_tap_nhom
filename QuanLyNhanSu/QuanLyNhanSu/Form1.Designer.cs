@@ -53,20 +53,20 @@
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.tabPhongBan = new System.Windows.Forms.TabPage();
             this.dgvPhongBan = new System.Windows.Forms.DataGridView();
-            this.tabLuong = new System.Windows.Forms.TabPage();
-            this.dgvLuong = new System.Windows.Forms.DataGridView();
             this.tabNhanVien = new System.Windows.Forms.TabPage();
             this.dgvNhanVien = new System.Windows.Forms.DataGridView();
             this.tabMain = new System.Windows.Forms.TabControl();
+            this.tabLuong = new System.Windows.Forms.TabPage();
+            this.dgvLuong = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPhongBan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongBan)).BeginInit();
-            this.tabLuong.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
             this.tabNhanVien.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).BeginInit();
             this.tabMain.SuspendLayout();
+            this.tabLuong.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -305,24 +305,6 @@
             this.dgvPhongBan.Size = new System.Drawing.Size(579, 169);
             this.dgvPhongBan.TabIndex = 0;
             // 
-            // tabLuong
-            // 
-            this.tabLuong.Controls.Add(this.dgvLuong);
-            this.tabLuong.Location = new System.Drawing.Point(4, 22);
-            this.tabLuong.Name = "tabLuong";
-            this.tabLuong.Size = new System.Drawing.Size(579, 169);
-            this.tabLuong.TabIndex = 2;
-            this.tabLuong.Text = "Lương";
-            this.tabLuong.UseVisualStyleBackColor = true;
-            // 
-            // dgvLuong
-            // 
-            this.dgvLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLuong.Location = new System.Drawing.Point(0, 0);
-            this.dgvLuong.Name = "dgvLuong";
-            this.dgvLuong.Size = new System.Drawing.Size(579, 173);
-            this.dgvLuong.TabIndex = 0;
-            // 
             // tabNhanVien
             // 
             this.tabNhanVien.Controls.Add(this.dgvNhanVien);
@@ -344,13 +326,32 @@
             // tabMain
             // 
             this.tabMain.Controls.Add(this.tabNhanVien);
-            this.tabMain.Controls.Add(this.tabLuong);
             this.tabMain.Controls.Add(this.tabPhongBan);
+            this.tabMain.Controls.Add(this.tabLuong);
             this.tabMain.Location = new System.Drawing.Point(23, 244);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(587, 195);
             this.tabMain.TabIndex = 14;
+            this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
+            // 
+            // tabLuong
+            // 
+            this.tabLuong.Controls.Add(this.dgvLuong);
+            this.tabLuong.Location = new System.Drawing.Point(4, 22);
+            this.tabLuong.Name = "tabLuong";
+            this.tabLuong.Size = new System.Drawing.Size(579, 169);
+            this.tabLuong.TabIndex = 5;
+            this.tabLuong.Text = "Lương";
+            this.tabLuong.UseVisualStyleBackColor = true;
+            // 
+            // dgvLuong
+            // 
+            this.dgvLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLuong.Location = new System.Drawing.Point(0, 0);
+            this.dgvLuong.Name = "dgvLuong";
+            this.dgvLuong.Size = new System.Drawing.Size(579, 169);
+            this.dgvLuong.TabIndex = 1;
             // 
             // Form1
             // 
@@ -369,11 +370,11 @@
             this.groupBox2.ResumeLayout(false);
             this.tabPhongBan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongBan)).EndInit();
-            this.tabLuong.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
             this.tabNhanVien.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
             this.tabMain.ResumeLayout(false);
+            this.tabLuong.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,11 +407,11 @@
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.TabPage tabPhongBan;
         private System.Windows.Forms.DataGridView dgvPhongBan;
-        private System.Windows.Forms.TabPage tabLuong;
-        private System.Windows.Forms.DataGridView dgvLuong;
         private System.Windows.Forms.TabPage tabNhanVien;
         private System.Windows.Forms.DataGridView dgvNhanVien;
         private System.Windows.Forms.TabControl tabMain;
+        private System.Windows.Forms.TabPage tabLuong;
+        private System.Windows.Forms.DataGridView dgvLuong;
     }
 }
 

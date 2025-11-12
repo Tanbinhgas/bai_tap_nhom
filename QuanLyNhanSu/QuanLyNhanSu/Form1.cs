@@ -28,24 +28,90 @@ namespace QuanLyNhanSu
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT NhanVienID, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai FROM NhanVien";
+                    string query = @"
+                        SELECT NhanVienID, MaNV, HoTen, NgaySinh, GioiTinh, 
+                               DienThoai, Email, DiaChi, ChucVu
+                        FROM NhanVien
+                        ORDER BY NhanVienID";
+
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dgvNhanVien.DataSource = dt;
 
-                    dgvNhanVien.Columns["NhanVienID"].HeaderText = "Mã NV";
+                    // Đặt tiêu đề cột
+                    dgvNhanVien.Columns["MaNV"].HeaderText = "Mã NV";
                     dgvNhanVien.Columns["HoTen"].HeaderText = "Họ tên";
-                    dgvNhanVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
-                    dgvNhanVien.Columns["GioiTinh"].HeaderText = "Giới tính";
-                    dgvNhanVien.Columns["Email"].HeaderText = "Email";
-                    dgvNhanVien.Columns["DiaChi"].HeaderText = "Địa chỉ";
-                    dgvNhanVien.Columns["DienThoai"].HeaderText = "Điện thoại";
+                    dgvNhanVien.Columns["ChucVu"].HeaderText = "Chức vụ";
+                    dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+                MessageBox.Show("Lỗi load nhân viên: " + ex.Message);
+            }
+        }
+
+        private void LoadAllLuongFromDB()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = @"
+                        SELECT 
+                            nv.MaNV,
+                            nv.HoTen,
+                            pb.TenPhong AS PhongBan,
+                            l.LuongCoBan,
+                            ISNULL(l.PhuCap, 0) AS PhuCap,
+                            (l.LuongCoBan + ISNULL(l.PhuCap, 0)) AS TongLuong,
+                            FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' ₫' AS TongLuong_VND,
+                            FORMAT(l.NgayApDung, 'dd/MM/yyyy') AS NgayApDung,
+                            l.GhiChu
+                        FROM dbo.Luong l
+                        INNER JOIN dbo.NhanVien nv ON l.NhanVienID = nv.NhanVienID
+                        INNER JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
+                        WHERE nv.TrangThai = 1
+                          AND l.NgayApDung = (
+                              SELECT MAX(NgayApDung) 
+                              FROM dbo.Luong l2 
+                              WHERE l2.NhanVienID = l.NhanVienID
+                          )
+                        ORDER BY TongLuong DESC, nv.HoTen";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dgvLuong.DataSource = dt;
+
+                    // ĐẸP CỘT
+                    dgvLuong.Columns["MaNV"].HeaderText = "Mã NV";
+                    dgvLuong.Columns["HoTen"].HeaderText = "Họ tên";
+                    dgvLuong.Columns["PhongBan"].HeaderText = "Phòng ban";
+                    dgvLuong.Columns["LuongCoBan"].HeaderText = "Lương CB";
+                    dgvLuong.Columns["PhuCap"].HeaderText = "Phụ cấp";
+                    dgvLuong.Columns["TongLuong_VND"].HeaderText = "Tổng lương";
+                    dgvLuong.Columns["NgayApDung"].HeaderText = "Ngày áp dụng";
+                    dgvLuong.Columns["GhiChu"].HeaderText = "Ghi chú";
+
+                    // Ẩn cột số
+                    dgvLuong.Columns["TongLuong"].Visible = false;
+
+                    // Định dạng tiền
+                    dgvLuong.Columns["LuongCoBan"].DefaultCellStyle.Format = "N0";
+                    dgvLuong.Columns["PhuCap"].DefaultCellStyle.Format = "N0";
+                    dgvLuong.Columns["LuongCoBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgvLuong.Columns["PhuCap"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                    dgvLuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load lương: " + ex.Message);
+                dgvLuong.DataSource = null;
             }
         }
 
@@ -55,23 +121,27 @@ namespace QuanLyNhanSu
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    // DÙNG TRỰC TIẾP BẢNG NhanVien + PhongBan (KHÔNG CẦN VIEW)
                     string query = @"
                         SELECT 
-                            pb.PhongBanID,
-                            pb.TenPhong AS TenPhongBan,
-                            COUNT(nv.NhanVienID) AS SoLuongNhanVien
+                            pb.MaPhong,
+                            pb.TenPhong,
+                            pb.MoTa,
+                            COUNT(nv.NhanVienID) AS SoLuongNhanVien,
+                            CASE WHEN pb.TrangThai = 1 THEN N'Hoạt động' ELSE N'Ngừng' END AS TrangThai
                         FROM PhongBan pb
                         LEFT JOIN NhanVien nv ON pb.PhongBanID = nv.PhongBanID
-                        GROUP BY pb.PhongBanID, pb.TenPhong";
+                        GROUP BY pb.MaPhong, pb.TenPhong, pb.MoTa, pb.TrangThai";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dgvPhongBan.DataSource = dt;
 
-                    dgvPhongBan.Columns["TenPhongBan"].HeaderText = "Tên phòng ban";
-                    dgvPhongBan.Columns["SoLuongNhanVien"].HeaderText = "Số lượng NV";
+                    dgvPhongBan.Columns["MaPhong"].HeaderText = "Mã phòng";
+                    dgvPhongBan.Columns["TenPhong"].HeaderText = "Tên phòng";
+                    dgvPhongBan.Columns["SoLuongNhanVien"].HeaderText = "Số NV";
+                    dgvPhongBan.Columns["TrangThai"].HeaderText = "Trạng thái";
+                    dgvPhongBan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -79,42 +149,11 @@ namespace QuanLyNhanSu
                 MessageBox.Show("Lỗi load phòng ban: " + ex.Message);
             }
         }
-
-        private void LoadLuongFromDB(int nhanVienID)
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            if (tabMain.SelectedTab == tabLuong)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                        SELECT 
-                            LuongID,
-                            LuongCoBan,
-                            PhuCap,
-                            NgayApDung,
-                            GhiChu
-                        FROM Luong
-                        WHERE NhanVienID = @ID";
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@ID", nhanVienID);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-
-                    dgvLuong.DataSource = dt;
-
-                    // ĐẸP CỘT + TỰ ĐỘNG ĐỘ RỘNG
-                    dgvLuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    dgvLuong.Columns["LuongCoBan"].HeaderText = "Lương cơ bản";
-                    dgvLuong.Columns["PhuCap"].HeaderText = "Phụ cấp";
-                    dgvLuong.Columns["NgayApDung"].HeaderText = "Ngày áp dụng";
-                    dgvLuong.Columns["GhiChu"].HeaderText = "Ghi chú";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi load lương: " + ex.Message);
-                dgvLuong.DataSource = null;
+                LoadAllLuongFromDB();
             }
         }
 
@@ -126,33 +165,6 @@ namespace QuanLyNhanSu
             txtPhone.Clear();
             dtpNgaySinh.Value = DateTime.Now;
             radNam.Checked = true;
-        }
-
-        private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                try
-                {
-                    DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
-                    int id = Convert.ToInt32(row.Cells["NhanVienID"].Value);
-                    ViewState.NhanVienID = id;
-
-                    // Hiển thị thông tin
-                    txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
-                    dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
-                    radNam.Checked = row.Cells["GioiTinh"].Value?.ToString() == "Nam";
-                    txtEmail.Text = row.Cells["Email"].Value?.ToString() ?? "";
-                    txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
-                    txtPhone.Text = row.Cells["DienThoai"].Value?.ToString() ?? "";
-
-                    LoadLuongFromDB(id);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi: " + ex.Message);
-                }
-            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -186,7 +198,12 @@ namespace QuanLyNhanSu
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (ViewState.NhanVienID == 0) { MessageBox.Show("Chọn nhân viên!"); return; }
+            if (ViewState.NhanVienID == 0)
+            {
+                MessageBox.Show("Chọn nhân viên cần sửa!");
+                return;
+            }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -197,7 +214,7 @@ namespace QuanLyNhanSu
                     cmd.Parameters.AddWithValue("@ID", ViewState.NhanVienID);
                     cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text);
                     cmd.Parameters.AddWithValue("@NgaySinh", dtpNgaySinh.Value);
-                    cmd.Parameters.AddWithValue("@GioiTTinh", radNam.Checked ? "Nam" : "Nữ");
+                    cmd.Parameters.AddWithValue("@GioiTinh", radNam.Checked ? "Nam" : "Nữ");
                     cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
                     cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text);
                     cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text);
@@ -218,8 +235,13 @@ namespace QuanLyNhanSu
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (ViewState.NhanVienID == 0) { MessageBox.Show("Chọn nhân viên!"); return; }
-            if (MessageBox.Show("Xóa?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (ViewState.NhanVienID == 0)
+            {
+                MessageBox.Show("Chọn nhân viên cần xóa!");
+                return;
+            }
+
+            if (MessageBox.Show("Bạn có chắc muốn xóa nhân viên này?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
@@ -249,7 +271,7 @@ namespace QuanLyNhanSu
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT NhanVienID, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai " +
+                    string query = "SELECT NhanVienID, MaNV, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai " +
                                    "FROM NhanVien WHERE HoTen LIKE @k OR Email LIKE @k OR DienThoai LIKE @k";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     adapter.SelectCommand.Parameters.AddWithValue("@k", "%" + txtTimKiem.Text + "%");
@@ -272,5 +294,7 @@ namespace QuanLyNhanSu
         private void dtpNgaySinh_ValueChanged(object sender, EventArgs e) { }
         private void lblPhone_Click(object sender, EventArgs e) { }
         private void cboSapXep_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void dgvLuong_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void dgvLuong_CellContentClick_1(object sender, DataGridViewCellEventArgs e) { }
     }
 }

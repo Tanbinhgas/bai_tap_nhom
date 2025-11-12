@@ -1,19 +1,31 @@
--- Script generated for database: QuanLyNhanVien
-IF DB_ID(N'QuanLyNhanVien') IS NULL
-BEGIN
-    CREATE DATABASE [QuanLyNhanVien];
-END
-GO
-USE [QuanLyNhanVien];
+USE [QuanLyNhanVien]
 GO
 
-
-/* 1. Tìm nhân viên có MucLuong cao nhất (lấy bản ghi lương mới nhất cho mỗi nhân viên) */
-SELECT TOP 1 nv.NhanVienID, nv.HoTen, l.HeSoLuong, l.NgayApDung
-FROM dbo.NhanVien nv
-JOIN dbo.Luong l ON nv.NhanVienID = l.NhanVienID
-WHERE l.NgayApDung = (
-    SELECT MAX(NgayApDung) FROM dbo.Luong l2 WHERE l2.NhanVienID = nv.NhanVienID
+/* TÌM NHÂN VIÊN CÓ LƯƠNG CAO NHẤT */
+WITH LuongMoiNhat AS (
+    -- LẤY BẢN GHI LƯƠNG MỚI NHẤT CỦA MỖI NHÂN VIÊN
+    SELECT 
+        NhanVienID,
+        LuongID,
+        LuongCoBan,
+        PhuCap,
+        NgayApDung,
+        ROW_NUMBER() OVER (PARTITION BY NhanVienID ORDER BY NgayApDung DESC) AS RN
+    FROM dbo.Luong
 )
-ORDER BY l.HeSoLuong DESC;
+SELECT TOP 1
+    nv.MaNV,
+    nv.HoTen,
+    FORMAT(lmn.LuongCoBan, 'N0') + ' ₫' AS LuongCoBan,
+    FORMAT(lmn.PhuCap, 'N0') + ' ₫' AS PhuCap,
+    (lmn.LuongCoBan + ISNULL(lmn.PhuCap, 0)) AS TongLuong,
+    FORMAT(lmn.LuongCoBan + ISNULL(lmn.PhuCap, 0), 'N0') + ' ₫' AS TongLuong_VND,
+    lmn.NgayApDung,
+    pb.TenPhong AS PhongBan,
+    nv.ChucVu
+FROM LuongMoiNhat lmn
+JOIN dbo.NhanVien nv ON lmn.NhanVienID = nv.NhanVienID
+JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
+WHERE lmn.RN = 1  -- Chỉ lấy bản ghi mới nhất
+ORDER BY (lmn.LuongCoBan + ISNULL(lmn.PhuCap, 0)) DESC;
 GO

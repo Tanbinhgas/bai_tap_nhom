@@ -1,9 +1,3 @@
--- Script generated for database: QuanLyNhanVien
-IF DB_ID(N'QuanLyNhanVien') IS NULL
-BEGIN
-    CREATE DATABASE [QuanLyNhanVien];
-END
-GO
 USE [QuanLyNhanVien];
 GO
 
