@@ -53,8 +53,26 @@
             this.cboSapXep = new System.Windows.Forms.ComboBox();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
+            this.tabMain = new System.Windows.Forms.TabControl();
+            this.tabNhanVien = new System.Windows.Forms.TabPage();
+            this.tabLuong = new System.Windows.Forms.TabPage();
+            this.tabHopDong = new System.Windows.Forms.TabPage();
+            this.tabPhongBan = new System.Windows.Forms.TabPage();
+            this.dgvNhanVien = new System.Windows.Forms.DataGridView();
+            this.dgvLuong = new System.Windows.Forms.DataGridView();
+            this.dgvHopDong = new System.Windows.Forms.DataGridView();
+            this.dgvPhongBan = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabMain.SuspendLayout();
+            this.tabNhanVien.SuspendLayout();
+            this.tabLuong.SuspendLayout();
+            this.tabHopDong.SuspendLayout();
+            this.tabPhongBan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPhongBan)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -298,11 +316,96 @@
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
             // 
+            // tabMain
+            // 
+            this.tabMain.Controls.Add(this.tabNhanVien);
+            this.tabMain.Controls.Add(this.tabLuong);
+            this.tabMain.Controls.Add(this.tabHopDong);
+            this.tabMain.Controls.Add(this.tabPhongBan);
+            this.tabMain.Location = new System.Drawing.Point(23, 244);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(587, 195);
+            this.tabMain.TabIndex = 14;
+            // 
+            // tabNhanVien
+            // 
+            this.tabNhanVien.Controls.Add(this.dgvNhanVien);
+            this.tabNhanVien.Location = new System.Drawing.Point(4, 22);
+            this.tabNhanVien.Name = "tabNhanVien";
+            this.tabNhanVien.Size = new System.Drawing.Size(579, 169);
+            this.tabNhanVien.TabIndex = 1;
+            this.tabNhanVien.Text = "Nhân viên";
+            this.tabNhanVien.UseVisualStyleBackColor = true;
+            // 
+            // tabLuong
+            // 
+            this.tabLuong.Controls.Add(this.dgvLuong);
+            this.tabLuong.Location = new System.Drawing.Point(4, 22);
+            this.tabLuong.Name = "tabLuong";
+            this.tabLuong.Size = new System.Drawing.Size(579, 169);
+            this.tabLuong.TabIndex = 2;
+            this.tabLuong.Text = "Lương";
+            this.tabLuong.UseVisualStyleBackColor = true;
+            // 
+            // tabHopDong
+            // 
+            this.tabHopDong.Controls.Add(this.dgvHopDong);
+            this.tabHopDong.Location = new System.Drawing.Point(4, 22);
+            this.tabHopDong.Name = "tabHopDong";
+            this.tabHopDong.Size = new System.Drawing.Size(579, 169);
+            this.tabHopDong.TabIndex = 3;
+            this.tabHopDong.Text = "Hợp đồng";
+            this.tabHopDong.UseVisualStyleBackColor = true;
+            // 
+            // tabPhongBan
+            // 
+            this.tabPhongBan.Controls.Add(this.dgvPhongBan);
+            this.tabPhongBan.Location = new System.Drawing.Point(4, 22);
+            this.tabPhongBan.Name = "tabPhongBan";
+            this.tabPhongBan.Size = new System.Drawing.Size(579, 169);
+            this.tabPhongBan.TabIndex = 4;
+            this.tabPhongBan.Text = "Phòng ban";
+            this.tabPhongBan.UseVisualStyleBackColor = true;
+            // 
+            // dgvNhanVien
+            // 
+            this.dgvNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNhanVien.Location = new System.Drawing.Point(0, 0);
+            this.dgvNhanVien.Name = "dgvNhanVien";
+            this.dgvNhanVien.Size = new System.Drawing.Size(579, 169);
+            this.dgvNhanVien.TabIndex = 0;
+            // 
+            // dgvLuong
+            // 
+            this.dgvLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLuong.Location = new System.Drawing.Point(0, 0);
+            this.dgvLuong.Name = "dgvLuong";
+            this.dgvLuong.Size = new System.Drawing.Size(579, 173);
+            this.dgvLuong.TabIndex = 0;
+            // 
+            // dgvHopDong
+            // 
+            this.dgvHopDong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHopDong.Location = new System.Drawing.Point(0, 0);
+            this.dgvHopDong.Name = "dgvHopDong";
+            this.dgvHopDong.Size = new System.Drawing.Size(579, 169);
+            this.dgvHopDong.TabIndex = 0;
+            // 
+            // dgvPhongBan
+            // 
+            this.dgvPhongBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPhongBan.Location = new System.Drawing.Point(0, 0);
+            this.dgvPhongBan.Name = "dgvPhongBan";
+            this.dgvPhongBan.Size = new System.Drawing.Size(579, 169);
+            this.dgvPhongBan.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 451);
+            this.Controls.Add(this.tabMain);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.txtTimKiem);
             this.Controls.Add(this.cboSapXep);
@@ -314,6 +417,15 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
+            this.tabNhanVien.ResumeLayout(false);
+            this.tabLuong.ResumeLayout(false);
+            this.tabHopDong.ResumeLayout(false);
+            this.tabPhongBan.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPhongBan)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,6 +458,15 @@
         private System.Windows.Forms.ComboBox cboSapXep;
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Button btnTimKiem;
+        private System.Windows.Forms.TabControl tabMain;
+        private System.Windows.Forms.TabPage tabNhanVien;
+        private System.Windows.Forms.TabPage tabLuong;
+        private System.Windows.Forms.DataGridView dgvNhanVien;
+        private System.Windows.Forms.TabPage tabHopDong;
+        private System.Windows.Forms.TabPage tabPhongBan;
+        private System.Windows.Forms.DataGridView dgvLuong;
+        private System.Windows.Forms.DataGridView dgvHopDong;
+        private System.Windows.Forms.DataGridView dgvPhongBan;
     }
 }
 

@@ -9,11 +9,11 @@ GO
 
 
 /* 1. Tìm nhân viên có MucLuong cao nhất (lấy bản ghi lương mới nhất cho mỗi nhân viên) */
-SELECT TOP 1 nv.NhanVienID, nv.HoTen, l.MucLuong, l.NgayApDung
+SELECT TOP 1 nv.NhanVienID, nv.HoTen, l.HeSoLuong, l.NgayApDung
 FROM dbo.NhanVien nv
 JOIN dbo.Luong l ON nv.NhanVienID = l.NhanVienID
 WHERE l.NgayApDung = (
     SELECT MAX(NgayApDung) FROM dbo.Luong l2 WHERE l2.NhanVienID = nv.NhanVienID
 )
-ORDER BY l.MucLuong DESC;
+ORDER BY l.HeSoLuong DESC;
 GO

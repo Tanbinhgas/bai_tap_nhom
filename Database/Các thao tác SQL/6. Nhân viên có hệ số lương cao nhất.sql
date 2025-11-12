@@ -9,7 +9,7 @@ GO
 
 
 /* 6. Nhân viên có hệ số lương cao nhất (dựa trên bản ghi lương mới nhất) */
-SELECT nv.NhanVienID, nv.HoTen, l.HeSoLuong, l.PhuCap, l.MucLuong
+SELECT nv.NhanVienID, nv.HoTen, l.HeSoLuong, l.PhuCap, l.HeSoLuong
 FROM dbo.NhanVien nv
 JOIN dbo.Luong l ON nv.NhanVienID = l.NhanVienID
 WHERE l.NgayApDung = (

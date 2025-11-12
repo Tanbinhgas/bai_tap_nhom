@@ -19,7 +19,7 @@ WITH LatestLuong AS (
     ) lm ON l1.NhanVienID = lm.NhanVienID AND l1.NgayApDung = lm.MaxDate
 )
 SELECT pb.PhongBanID, pb.TenPhong, COUNT(nv.NhanVienID) AS SoNhanVien,
-       SUM(ISNULL(ll.MucLuong,0)) AS TongChiLuong
+       SUM(ISNULL(ll.HeSoLuong,0)) AS TongChiLuong
 FROM dbo.PhongBan pb
 LEFT JOIN dbo.NhanVien nv ON pb.PhongBanID = nv.PhongBanID
 LEFT JOIN LatestLuong ll ON nv.NhanVienID = ll.NhanVienID
