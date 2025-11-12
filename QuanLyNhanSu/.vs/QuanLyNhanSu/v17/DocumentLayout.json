@@ -1,22 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\",
+  "WorkspaceRootPath": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|c:\\users\\tanbinhgas\\source\\repos\\quanlynhansu\\quanlynhansu\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:quanlynhansu\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:QuanLyNhanSu\\Form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|c:\\users\\tanbinhgas\\source\\repos\\quanlynhansu\\quanlynhansu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:quanlynhansu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:QuanLyNhanSu\\Form1.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|c:\\users\\tanbinhgas\\source\\repos\\quanlynhansu\\quanlynhansu\\nhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:quanlynhansu\\nhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\NhanVien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:QuanLyNhanSu\\NhanVien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\quanlynhansu\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:quanlynhansu\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:QuanLyNhanSu\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE15D862-AC96-42AB-BA11-F8A05FA4BB77}|QuanLyNhanSu\\QuanLyNhanSu.csproj|solutionrelative:QuanLyNhanSu\\Form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,15 +30,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "QuanLyNhanSu\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.Designer.cs",
+              "RelativeToolTip": "QuanLyNhanSu\\Form1.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T00:20:19.306Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Program.cs",
               "RelativeDocumentMoniker": "QuanLyNhanSu\\Program.cs",
-              "ToolTip": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\Program.cs",
+              "ToolTip": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Program.cs",
               "RelativeToolTip": "QuanLyNhanSu\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -45,9 +66,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "NhanVien.cs",
-              "DocumentMoniker": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\NhanVien.cs",
+              "DocumentMoniker": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\NhanVien.cs",
               "RelativeDocumentMoniker": "QuanLyNhanSu\\NhanVien.cs",
-              "ToolTip": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\NhanVien.cs",
+              "ToolTip": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\NhanVien.cs",
               "RelativeToolTip": "QuanLyNhanSu\\NhanVien.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -58,9 +79,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
               "RelativeDocumentMoniker": "QuanLyNhanSu\\Form1.cs",
-              "ToolTip": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs [Design]",
               "RelativeToolTip": "QuanLyNhanSu\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-11T09:07:24.475Z",
@@ -68,13 +89,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
               "RelativeDocumentMoniker": "QuanLyNhanSu\\Form1.cs",
-              "ToolTip": "C:\\Users\\TANBINHGAS\\source\\repos\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
+              "ToolTip": "C:\\Users\\tanbinhgas\\Desktop\\bai_tap_nhom\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
               "RelativeToolTip": "QuanLyNhanSu\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-11T08:06:22.289Z",
               "EditorCaption": ""
