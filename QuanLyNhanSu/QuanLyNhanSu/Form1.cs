@@ -13,7 +13,7 @@ namespace QuanLyNhanSu
 {
     public partial class Form1 : Form
     {
-        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
 
         public Form1()
         {
@@ -87,38 +87,35 @@ namespace QuanLyNhanSu
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                SELECT l.LuongID, l.NgayApDung, l.HeSoLuong, l.PhuCap, l.GhiChu
-                FROM Luong l
-                WHERE l.NhanVienID = @ID
-                ORDER BY l.NgayApDung DESC";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@ID", nhanVienID);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvLuong.DataSource = dt;  // ĐÚNG TÊN
-                }
-            }
-            catch { dgvLuong.DataSource = null; }
-        }
+                        SELECT 
+                            LuongID,
+                            LuongCoBan,
+                            PhuCap,
+                            NgayApDung,
+                            GhiChu
+                        FROM Luong
+                        WHERE NhanVienID = @ID";
 
-        private void LoadHopDongFromDB(int nhanVienID)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                SELECT hd.HopDongID, hd.NgayKy, hd.NgayHet, hd.LoaiHopDong, hd.LuongCoBan
-                FROM HopDong hd
-                WHERE hd.NhanVienID = @ID";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     adapter.SelectCommand.Parameters.AddWithValue("@ID", nhanVienID);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
-                    dgvHopDong.DataSource = dt;  // ĐÚNG TÊN
+
+                    dgvLuong.DataSource = dt;
+
+                    // ĐẸP CỘT + TỰ ĐỘNG ĐỘ RỘNG
+                    dgvLuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dgvLuong.Columns["LuongCoBan"].HeaderText = "Lương cơ bản";
+                    dgvLuong.Columns["PhuCap"].HeaderText = "Phụ cấp";
+                    dgvLuong.Columns["NgayApDung"].HeaderText = "Ngày áp dụng";
+                    dgvLuong.Columns["GhiChu"].HeaderText = "Ghi chú";
                 }
             }
-            catch { dgvHopDong.DataSource = null; }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load lương: " + ex.Message);
+                dgvLuong.DataSource = null;
+            }
         }
 
         private void ClearInput()
@@ -138,6 +135,10 @@ namespace QuanLyNhanSu
                 try
                 {
                     DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
+                    int id = Convert.ToInt32(row.Cells["NhanVienID"].Value);
+                    ViewState.NhanVienID = id;
+
+                    // Hiển thị thông tin
                     txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
                     dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
                     radNam.Checked = row.Cells["GioiTinh"].Value?.ToString() == "Nam";
@@ -145,16 +146,11 @@ namespace QuanLyNhanSu
                     txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
                     txtPhone.Text = row.Cells["DienThoai"].Value?.ToString() ?? "";
 
-                    int id = Convert.ToInt32(row.Cells["NhanVienID"].Value);
-                    ViewState.NhanVienID = id;
-
-                    // GỌI 2 HÀM NÀY ĐỂ HIỂN THỊ LƯƠNG + HỢP ĐỒNG
                     LoadLuongFromDB(id);
-                    LoadHopDongFromDB(id);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi chọn nhân viên: " + ex.Message);
+                    MessageBox.Show("Lỗi: " + ex.Message);
                 }
             }
         }

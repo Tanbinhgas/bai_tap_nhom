@@ -49,30 +49,24 @@
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cboSapXep = new System.Windows.Forms.ComboBox();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
-            this.tabMain = new System.Windows.Forms.TabControl();
-            this.tabNhanVien = new System.Windows.Forms.TabPage();
-            this.tabLuong = new System.Windows.Forms.TabPage();
-            this.tabHopDong = new System.Windows.Forms.TabPage();
             this.tabPhongBan = new System.Windows.Forms.TabPage();
-            this.dgvNhanVien = new System.Windows.Forms.DataGridView();
-            this.dgvLuong = new System.Windows.Forms.DataGridView();
-            this.dgvHopDong = new System.Windows.Forms.DataGridView();
             this.dgvPhongBan = new System.Windows.Forms.DataGridView();
+            this.tabLuong = new System.Windows.Forms.TabPage();
+            this.dgvLuong = new System.Windows.Forms.DataGridView();
+            this.tabNhanVien = new System.Windows.Forms.TabPage();
+            this.dgvNhanVien = new System.Windows.Forms.DataGridView();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tabMain.SuspendLayout();
-            this.tabNhanVien.SuspendLayout();
-            this.tabLuong.SuspendLayout();
-            this.tabHopDong.SuspendLayout();
             this.tabPhongBan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongBan)).BeginInit();
+            this.tabLuong.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
+            this.tabNhanVien.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).BeginInit();
+            this.tabMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -277,86 +271,21 @@
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 220);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Sắp xếp";
-            // 
-            // cboSapXep
-            // 
-            this.cboSapXep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboSapXep.FormattingEnabled = true;
-            this.cboSapXep.Items.AddRange(new object[] {
-            "ID",
-            "Họ tên",
-            "Ngày sinh"});
-            this.cboSapXep.Location = new System.Drawing.Point(80, 217);
-            this.cboSapXep.Name = "cboSapXep";
-            this.cboSapXep.Size = new System.Drawing.Size(150, 21);
-            this.cboSapXep.TabIndex = 3;
-            this.cboSapXep.SelectedIndexChanged += new System.EventHandler(this.cboSapXep_SelectedIndexChanged);
-            // 
             // txtTimKiem
             // 
-            this.txtTimKiem.Location = new System.Drawing.Point(293, 218);
+            this.txtTimKiem.Location = new System.Drawing.Point(27, 218);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(200, 20);
             this.txtTimKiem.TabIndex = 4;
             // 
             // btnTimKiem
             // 
-            this.btnTimKiem.Location = new System.Drawing.Point(510, 215);
+            this.btnTimKiem.Location = new System.Drawing.Point(233, 215);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(58, 23);
             this.btnTimKiem.TabIndex = 5;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
-            // 
-            // tabMain
-            // 
-            this.tabMain.Controls.Add(this.tabNhanVien);
-            this.tabMain.Controls.Add(this.tabLuong);
-            this.tabMain.Controls.Add(this.tabHopDong);
-            this.tabMain.Controls.Add(this.tabPhongBan);
-            this.tabMain.Location = new System.Drawing.Point(23, 244);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(587, 195);
-            this.tabMain.TabIndex = 14;
-            // 
-            // tabNhanVien
-            // 
-            this.tabNhanVien.Controls.Add(this.dgvNhanVien);
-            this.tabNhanVien.Location = new System.Drawing.Point(4, 22);
-            this.tabNhanVien.Name = "tabNhanVien";
-            this.tabNhanVien.Size = new System.Drawing.Size(579, 169);
-            this.tabNhanVien.TabIndex = 1;
-            this.tabNhanVien.Text = "Nhân viên";
-            this.tabNhanVien.UseVisualStyleBackColor = true;
-            // 
-            // tabLuong
-            // 
-            this.tabLuong.Controls.Add(this.dgvLuong);
-            this.tabLuong.Location = new System.Drawing.Point(4, 22);
-            this.tabLuong.Name = "tabLuong";
-            this.tabLuong.Size = new System.Drawing.Size(579, 169);
-            this.tabLuong.TabIndex = 2;
-            this.tabLuong.Text = "Lương";
-            this.tabLuong.UseVisualStyleBackColor = true;
-            // 
-            // tabHopDong
-            // 
-            this.tabHopDong.Controls.Add(this.dgvHopDong);
-            this.tabHopDong.Location = new System.Drawing.Point(4, 22);
-            this.tabHopDong.Name = "tabHopDong";
-            this.tabHopDong.Size = new System.Drawing.Size(579, 169);
-            this.tabHopDong.TabIndex = 3;
-            this.tabHopDong.Text = "Hợp đồng";
-            this.tabHopDong.UseVisualStyleBackColor = true;
             // 
             // tabPhongBan
             // 
@@ -368,13 +297,23 @@
             this.tabPhongBan.Text = "Phòng ban";
             this.tabPhongBan.UseVisualStyleBackColor = true;
             // 
-            // dgvNhanVien
+            // dgvPhongBan
             // 
-            this.dgvNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNhanVien.Location = new System.Drawing.Point(0, 0);
-            this.dgvNhanVien.Name = "dgvNhanVien";
-            this.dgvNhanVien.Size = new System.Drawing.Size(579, 169);
-            this.dgvNhanVien.TabIndex = 0;
+            this.dgvPhongBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPhongBan.Location = new System.Drawing.Point(0, 0);
+            this.dgvPhongBan.Name = "dgvPhongBan";
+            this.dgvPhongBan.Size = new System.Drawing.Size(579, 169);
+            this.dgvPhongBan.TabIndex = 0;
+            // 
+            // tabLuong
+            // 
+            this.tabLuong.Controls.Add(this.dgvLuong);
+            this.tabLuong.Location = new System.Drawing.Point(4, 22);
+            this.tabLuong.Name = "tabLuong";
+            this.tabLuong.Size = new System.Drawing.Size(579, 169);
+            this.tabLuong.TabIndex = 2;
+            this.tabLuong.Text = "Lương";
+            this.tabLuong.UseVisualStyleBackColor = true;
             // 
             // dgvLuong
             // 
@@ -384,21 +323,34 @@
             this.dgvLuong.Size = new System.Drawing.Size(579, 173);
             this.dgvLuong.TabIndex = 0;
             // 
-            // dgvHopDong
+            // tabNhanVien
             // 
-            this.dgvHopDong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHopDong.Location = new System.Drawing.Point(0, 0);
-            this.dgvHopDong.Name = "dgvHopDong";
-            this.dgvHopDong.Size = new System.Drawing.Size(579, 169);
-            this.dgvHopDong.TabIndex = 0;
+            this.tabNhanVien.Controls.Add(this.dgvNhanVien);
+            this.tabNhanVien.Location = new System.Drawing.Point(4, 22);
+            this.tabNhanVien.Name = "tabNhanVien";
+            this.tabNhanVien.Size = new System.Drawing.Size(579, 169);
+            this.tabNhanVien.TabIndex = 1;
+            this.tabNhanVien.Text = "Nhân viên";
+            this.tabNhanVien.UseVisualStyleBackColor = true;
             // 
-            // dgvPhongBan
+            // dgvNhanVien
             // 
-            this.dgvPhongBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPhongBan.Location = new System.Drawing.Point(0, 0);
-            this.dgvPhongBan.Name = "dgvPhongBan";
-            this.dgvPhongBan.Size = new System.Drawing.Size(579, 169);
-            this.dgvPhongBan.TabIndex = 0;
+            this.dgvNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNhanVien.Location = new System.Drawing.Point(0, 0);
+            this.dgvNhanVien.Name = "dgvNhanVien";
+            this.dgvNhanVien.Size = new System.Drawing.Size(579, 169);
+            this.dgvNhanVien.TabIndex = 0;
+            // 
+            // tabMain
+            // 
+            this.tabMain.Controls.Add(this.tabNhanVien);
+            this.tabMain.Controls.Add(this.tabLuong);
+            this.tabMain.Controls.Add(this.tabPhongBan);
+            this.tabMain.Location = new System.Drawing.Point(23, 244);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(587, 195);
+            this.tabMain.TabIndex = 14;
             // 
             // Form1
             // 
@@ -408,8 +360,6 @@
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.txtTimKiem);
-            this.Controls.Add(this.cboSapXep);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -417,15 +367,13 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.tabMain.ResumeLayout(false);
-            this.tabNhanVien.ResumeLayout(false);
-            this.tabLuong.ResumeLayout(false);
-            this.tabHopDong.ResumeLayout(false);
             this.tabPhongBan.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongBan)).EndInit();
+            this.tabLuong.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
+            this.tabNhanVien.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
+            this.tabMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,19 +402,15 @@
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnThoat;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cboSapXep;
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Button btnTimKiem;
-        private System.Windows.Forms.TabControl tabMain;
-        private System.Windows.Forms.TabPage tabNhanVien;
-        private System.Windows.Forms.TabPage tabLuong;
-        private System.Windows.Forms.DataGridView dgvNhanVien;
-        private System.Windows.Forms.TabPage tabHopDong;
         private System.Windows.Forms.TabPage tabPhongBan;
-        private System.Windows.Forms.DataGridView dgvLuong;
-        private System.Windows.Forms.DataGridView dgvHopDong;
         private System.Windows.Forms.DataGridView dgvPhongBan;
+        private System.Windows.Forms.TabPage tabLuong;
+        private System.Windows.Forms.DataGridView dgvLuong;
+        private System.Windows.Forms.TabPage tabNhanVien;
+        private System.Windows.Forms.DataGridView dgvNhanVien;
+        private System.Windows.Forms.TabControl tabMain;
     }
 }
 
