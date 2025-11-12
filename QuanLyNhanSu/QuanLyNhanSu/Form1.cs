@@ -29,20 +29,25 @@ namespace QuanLyNhanSu
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                        SELECT NhanVienID, MaNV, HoTen, NgaySinh, GioiTinh, 
-                               DienThoai, Email, DiaChi, ChucVu
-                        FROM NhanVien
-                        ORDER BY NhanVienID";
+                SELECT NhanVienID, MaNV, HoTen, GioiTinh, NgaySinh, 
+                       DienThoai, Email, DiaChi
+                FROM NhanVien
+                ORDER BY NhanVienID";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dgvNhanVien.DataSource = dt;
 
-                    // Đặt tiêu đề cột
-                    dgvNhanVien.Columns["MaNV"].HeaderText = "Mã NV";
+                    dgvNhanVien.Columns["NhanVienID"].Visible = false;
+                    dgvNhanVien.Columns["MaNV"].HeaderText = "ID";
                     dgvNhanVien.Columns["HoTen"].HeaderText = "Họ tên";
-                    dgvNhanVien.Columns["ChucVu"].HeaderText = "Chức vụ";
+                    dgvNhanVien.Columns["GioiTinh"].HeaderText = "Giới tính";
+                    dgvNhanVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                    dgvNhanVien.Columns["DienThoai"].HeaderText = "Số điện thoại";
+                    dgvNhanVien.Columns["Email"].HeaderText = "Email";
+                    dgvNhanVien.Columns["DiaChi"].HeaderText = "Địa chỉ";
+
                     dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
             }
@@ -169,23 +174,36 @@ namespace QuanLyNhanSu
 
         private void btnThem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtHoTen.Text))
+            {
+                MessageBox.Show("Vui lòng nhập họ tên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO NhanVien (HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai) " +
-                                   "VALUES (@HoTen, @NgaySinh, @GioiTinh, @Email, @DiaChi, @DienThoai)";
+                    string maNV = txtID.Text.Trim();
+                    if (string.IsNullOrEmpty(maNV))
+                        maNV = "NV" + DateTime.Now.ToString("yyMMddHHmmss");
+
+                    string query = @"
+                        INSERT INTO NhanVien (MaNV, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai, TrangThai)
+                        VALUES (@MaNV, @HoTen, @NgaySinh, @GioiTinh, @Email, @DiaChi, @DienThoai, 1)";
+
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text);
+                    cmd.Parameters.AddWithValue("@MaNV", maNV);
+                    cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text.Trim());
                     cmd.Parameters.AddWithValue("@NgaySinh", dtpNgaySinh.Value);
                     cmd.Parameters.AddWithValue("@GioiTinh", radNam.Checked ? "Nam" : "Nữ");
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text);
-                    cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text);
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
+                    cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Thêm thành công!");
+                    MessageBox.Show("Thêm thành công! Mã NV: " + maNV);
                     LoadNhanVienFromDB();
                     ClearInput();
                 }
@@ -200,7 +218,7 @@ namespace QuanLyNhanSu
         {
             if (ViewState.NhanVienID == 0)
             {
-                MessageBox.Show("Chọn nhân viên cần sửa!");
+                MessageBox.Show("Vui lòng chọn nhân viên cần sửa!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -208,16 +226,21 @@ namespace QuanLyNhanSu
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "UPDATE NhanVien SET HoTen=@HoTen, NgaySinh=@NgaySinh, GioiTinh=@GioiTinh, " +
-                                   "Email=@Email, DiaChi=@DiaChi, DienThoai=@DienThoai WHERE NhanVienID=@ID";
+                    string query = @"
+                        UPDATE NhanVien SET 
+                            MaNV = @MaNV, HoTen = @HoTen, NgaySinh = @NgaySinh,
+                            GioiTinh = @GioiTinh, Email = @Email, DiaChi = @DiaChi, DienThoai = @DienThoai
+                        WHERE NhanVienID = @ID";
+
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@ID", ViewState.NhanVienID);
-                    cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text);
+                    cmd.Parameters.AddWithValue("@MaNV", txtID.Text.Trim());
+                    cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text.Trim());
                     cmd.Parameters.AddWithValue("@NgaySinh", dtpNgaySinh.Value);
                     cmd.Parameters.AddWithValue("@GioiTinh", radNam.Checked ? "Nam" : "Nữ");
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text);
-                    cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text);
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
+                    cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -265,24 +288,21 @@ namespace QuanLyNhanSu
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
+            if (e.RowIndex >= 0)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    string query = "SELECT NhanVienID, MaNV, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai " +
-                                   "FROM NhanVien WHERE HoTen LIKE @k OR Email LIKE @k OR DienThoai LIKE @k";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@k", "%" + txtTimKiem.Text + "%");
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvNhanVien.DataSource = dt;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
+                ViewState.NhanVienID = Convert.ToInt32(row.Cells["NhanVienID"].Value);
+
+                txtID.Text = row.Cells["MaNV"].Value?.ToString() ?? "";
+                txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
+                dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
+                radNam.Checked = (row.Cells["GioiTinh"].Value?.ToString() == "Nam");
+                radNu.Checked = !radNam.Checked;
+                txtPhone.Text = row.Cells["DienThoai"].Value?.ToString() ?? "";
+                txtEmail.Text = row.Cells["Email"].Value?.ToString() ?? "";
+                txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
             }
         }
 
@@ -296,5 +316,27 @@ namespace QuanLyNhanSu
         private void cboSapXep_SelectedIndexChanged(object sender, EventArgs e) { }
         private void dgvLuong_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void dgvLuong_CellContentClick_1(object sender, DataGridViewCellEventArgs e) { }
+
+        private void radNu_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvNhanVien_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvNhanVien.Rows[e.RowIndex];
+                ViewState.NhanVienID = Convert.ToInt32(row.Cells["NhanVienID"].Value);
+
+                txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
+                dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
+                radNam.Checked = row.Cells["GioiTinh"].Value?.ToString() == "Nam";
+                radNu.Checked = !radNam.Checked;
+                txtPhone.Text = row.Cells["DienThoai"].Value?.ToString() ?? "";
+                txtEmail.Text = row.Cells["Email"].Value?.ToString() ?? "";
+                txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
+            }
+        }
     }
 }
