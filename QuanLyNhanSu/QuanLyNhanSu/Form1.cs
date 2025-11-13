@@ -173,30 +173,75 @@ namespace QuanLyNhanSu
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    // TỰ ĐỘNG TẠO MÃ NV
                     string maNV = txtID.Text.Trim();
-                    if (string.IsNullOrEmpty(maNV))
-                        maNV = "NV" + DateTime.Now.ToString("yyMMddHHmmss");
 
+                    // TỰ ĐỘNG TẠO MÃ NV ĐÚNG ĐỊNH DẠNG NV1xxx
+                    if (string.IsNullOrEmpty(maNV))
+                    {
+                        string queryMax = "SELECT MAX(CAST(SUBSTRING(MaNV, 4, 4) AS INT)) FROM NhanVien WHERE MaNV LIKE 'NV1[0-9][0-9][0-9]'";
+                        using (SqlCommand cmdMax = new SqlCommand(queryMax, conn))
+                        {
+                            conn.Open();
+                            object result = cmdMax.ExecuteScalar();
+                            int nextId = (result == DBNull.Value) ? 1001 : (int)result + 1;
+                            maNV = "NV" + nextId.ToString("D4");
+                            conn.Close();
+                        }
+                    }
+
+                    // KIỂM TRA TRÙNG MÃ NV
+                    string checkExist = "SELECT COUNT(*) FROM NhanVien WHERE MaNV = @MaNV";
+                    using (SqlCommand cmdCheck = new SqlCommand(checkExist, conn))
+                    {
+                        cmdCheck.Parameters.AddWithValue("@MaNV", maNV);
+                        conn.Open();
+                        int count = (int)cmdCheck.ExecuteScalar();
+                        conn.Close();
+                        if (count > 0)
+                        {
+                            MessageBox.Show($"Mã NV {maNV} đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    // THÊM NHÂN VIÊN
                     string query = @"
                         INSERT INTO NhanVien (MaNV, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai)
-                        VALUES (@MaNV, @HoTen, @NgaySinh, @GioiTinh, @Email, @DiaChi, @DienThoai)";  // ĐÃ BỎ , 1
+                        VALUES (@MaNV, @HoTen, @NgaySinh, @GioiTinh, @Email, @DiaChi, @DienThoai)";
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@MaNV", maNV);
-                    cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text.Trim());
-                    cmd.Parameters.AddWithValue("@NgaySinh", dtpNgaySinh.Value);
-                    cmd.Parameters.AddWithValue("@GioiTinh", radNam.Checked ? "Nam" : "Nữ");
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                    cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
-                    cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaNV", maNV);
+                        cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text.Trim());
+                        cmd.Parameters.AddWithValue("@NgaySinh", dtpNgaySinh.Value);
+                        cmd.Parameters.AddWithValue("@GioiTinh", radNam.Checked ? "Nam" : "Nữ");
+                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                        cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
+                        cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
 
                     MessageBox.Show($"Thêm thành công! Mã NV: {maNV}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadNhanVienFromDB(); // CẬP NHẬT LẠI BẢNG
-                    ClearInput(); // XÓA FORM
+
+                    // MỞ FORM3 ĐỂ NHẬP LƯƠNG & PHÒNG BAN
+                    using (Form3 frm = new Form3())
+                    {
+                        frm.MaNV = maNV;
+                        frm.HoTen = txtHoTen.Text.Trim();
+
+                        if (frm.ShowDialog() == DialogResult.OK)
+                        {
+                            LoadNhanVienFromDB();
+                            LoadAllLuongFromDB();
+                            LoadPhongBanFromDB();
+                        }
+                        // Form3 sẽ ngăn đóng nếu chưa nhập đủ
+                    }
+
+                    ClearInput(); // XÓA FORM CHỈ SAU KHI XONG
                 }
             }
             catch (Exception ex)

@@ -21,27 +21,44 @@ namespace WindowsFormsApp3
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            fManager f = new fManager();
+            // BẮT BUỘC NHẬP USERNAME HOẶC PASSWORD
+            if (string.IsNullOrWhiteSpace(textUsername.Text) && string.IsNullOrWhiteSpace(textPassword.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập hoặc mật khẩu!",
+                                "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // GIẢ LẬP ĐĂNG NHẬP THÀNH CÔNG
             this.Hide();
-            f.ShowDialog();
-            this.Show();
+            using (fManager f = new fManager())
+            {
+                f.ShowDialog(); // Mở fManager
+            }
+            this.Show(); // Hiện lại form login
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
-        private void flogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Bạn có thực sự muốn thoát chương trình?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show("Bạn có muốn thoát chương trình?", "Thoát",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                e.Cancel = true;
+                Application.Exit();
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void flogin_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                btnExit_Click(sender, e);
+            }
+        }
 
+        private void flogin_Load(object sender, EventArgs e)
+        {
+            textPassword.UseSystemPasswordChar = true; // Ẩn mật khẩu
         }
     }
 }

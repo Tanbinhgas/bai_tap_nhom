@@ -20,3 +20,4 @@ C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\Qua
 C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.exe.config
 C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.fManager.resources
 C:\Users\TANBINHGAS\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\WindowsFormsApp3.flogin.resources
+C:\Users\TANBINHGAS\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Form3.resources
