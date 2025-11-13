@@ -18,3 +18,4 @@ C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\Qua
 C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\QuanLyNhanSu.exe.config
 C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\QuanLyNhanSu.exe
 C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\QuanLyNhanSu.pdb
+C:\Users\tanbinhgas\Desktop\bai_tap_nhom\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.exe.config
