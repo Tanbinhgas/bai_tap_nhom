@@ -126,14 +126,14 @@ namespace QuanLyNhanSu
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                SELECT 
-                    pb.MaPhong,
-                    pb.TenPhong,
-                    COUNT(nv.MaNV) AS SoLuongNhanVien
-                FROM dbo.PhongBan pb
-                LEFT JOIN dbo.NhanVien nv ON pb.PhongBanID = nv.PhongBanID
-                GROUP BY pb.MaPhong, pb.TenPhong
-                ORDER BY pb.MaPhong";
+                        SELECT 
+                            pb.MaPhong,
+                            pb.TenPhong,
+                            COUNT(nv.MaNV) AS SoLuongNhanVien
+                        FROM dbo.PhongBan pb
+                        LEFT JOIN dbo.NhanVien nv ON pb.PhongBanID = nv.PhongBanID
+                        GROUP BY pb.MaPhong, pb.TenPhong
+                        ORDER BY pb.MaPhong";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
@@ -170,11 +170,12 @@ namespace QuanLyNhanSu
             radNam.Checked = true;
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void btnThem_Click_1(object sender, EventArgs e)
         {
+            // KIỂM TRA HỌ TÊN
             if (string.IsNullOrWhiteSpace(txtHoTen.Text))
             {
-                MessageBox.Show("Vui lòng nhập họ tên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập họ tên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -182,13 +183,14 @@ namespace QuanLyNhanSu
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
+                    // TỰ ĐỘNG TẠO MÃ NV
                     string maNV = txtID.Text.Trim();
                     if (string.IsNullOrEmpty(maNV))
                         maNV = "NV" + DateTime.Now.ToString("yyMMddHHmmss");
 
                     string query = @"
-                        INSERT INTO NhanVien (MaNV, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai, TrangThai)
-                        VALUES (@MaNV, @HoTen, @NgaySinh, @GioiTinh, @Email, @DiaChi, @DienThoai, 1)";
+                        INSERT INTO NhanVien (MaNV, HoTen, NgaySinh, GioiTinh, Email, DiaChi, DienThoai)
+                        VALUES (@MaNV, @HoTen, @NgaySinh, @GioiTinh, @Email, @DiaChi, @DienThoai)";  // ĐÃ BỎ , 1
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@MaNV", maNV);
@@ -198,26 +200,26 @@ namespace QuanLyNhanSu
                     cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
                     cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
-                    // TrangThai = 1 (đã có trong query)
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Thêm thành công! Mã NV: " + maNV);
-                    LoadNhanVienFromDB();
-                    ClearInput();
+
+                    MessageBox.Show($"Thêm thành công! Mã NV: {maNV}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadNhanVienFromDB(); // CẬP NHẬT LẠI BẢNG
+                    ClearInput(); // XÓA FORM
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi thêm: " + ex.Message);
+                MessageBox.Show("Lỗi thêm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(ViewState.MaNV))
             {
-                MessageBox.Show("Vui lòng chọn nhân viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn nhân viên để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -226,15 +228,14 @@ namespace QuanLyNhanSu
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                        UPDATE NhanVien SET 
-                            MaNV = @MaNV, 
-                            HoTen = @HoTen, 
+                        UPDATE NhanVien SET
+                            MaNV = @MaNV,
+                            HoTen = @HoTen,
                             NgaySinh = @NgaySinh,
-                            GioiTinh = @GioiTinh, 
-                            Email = @Email, 
-                            DiaChi = @DiaChi, 
-                            DienThoai = @DienThoai,
-                            TrangThai = 1
+                            GioiTinh = @GioiTinh,
+                            Email = @Email,
+                            DiaChi = @DiaChi,
+                            DienThoai = @DienThoai
                         WHERE MaNV = @MaNVCu";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -249,9 +250,10 @@ namespace QuanLyNhanSu
 
                     conn.Open();
                     int rows = cmd.ExecuteNonQuery();
+
                     if (rows > 0)
                     {
-                        MessageBox.Show("Sửa thành công!");
+                        MessageBox.Show("Sửa thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadNhanVienFromDB();
                         ClearInput();
                         ViewState.MaNV = "";
@@ -264,19 +266,20 @@ namespace QuanLyNhanSu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi sửa: " + ex.Message);
+                MessageBox.Show("Lỗi sửa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(ViewState.MaNV))
             {
-                MessageBox.Show("Chọn nhân viên cần xóa!");
+                MessageBox.Show("Vui lòng chọn nhân viên để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (MessageBox.Show("Xóa nhân viên này? (Sẽ xóa toàn dữ liệu)", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show($"Bạn có chắc chắn xóa nhân viên:\n{ViewState.MaNV}?",
+                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
@@ -287,7 +290,7 @@ namespace QuanLyNhanSu
                         {
                             try
                             {
-                                // XÓA LƯƠNG TRƯỚC
+                                // XÓA LƯƠNG TRƯỚC (nếu có)
                                 string deleteLuong = "DELETE FROM Luong WHERE MaNV = @MaNV";
                                 using (SqlCommand cmd = new SqlCommand(deleteLuong, conn, transaction))
                                 {
@@ -304,7 +307,7 @@ namespace QuanLyNhanSu
                                 }
 
                                 transaction.Commit();
-                                MessageBox.Show("Xóa thành công!");
+                                MessageBox.Show("Xóa thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 LoadNhanVienFromDB();
                                 ClearInput();
                                 ViewState.MaNV = "";
@@ -319,7 +322,7 @@ namespace QuanLyNhanSu
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi xóa: " + ex.Message);
+                    MessageBox.Show("Lỗi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
