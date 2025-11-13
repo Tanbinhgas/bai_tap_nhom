@@ -71,23 +71,15 @@ namespace QuanLyNhanSu
                             l.LuongCoBan,
                             ISNULL(l.PhuCap, 0) AS PhuCap,
                             (l.LuongCoBan + ISNULL(l.PhuCap, 0)) AS TongLuong,
-                            FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') +' ₫' AS TongLuong_VND,
-                            FORMAT(l.NgayApDung, 'dd/MM/yyyy') AS NgayApDung,
-                            l.GhiChu
+                            FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' VND' AS TongLuong_VND
                         FROM dbo.Luong l
                         INNER JOIN dbo.NhanVien nv ON l.MaNV = nv.MaNV
                         LEFT JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
-                        WHERE l.NgayApDung = (
-                            SELECT MAX(NgayApDung)
-                            FROM dbo.Luong l2
-                            WHERE l2.MaNV = l.MaNV
-                        )
                         ORDER BY TongLuong DESC, nv.HoTen";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
-
                     dgvLuong.DataSource = dt;
 
                     // ĐẸP CỘT
@@ -97,8 +89,6 @@ namespace QuanLyNhanSu
                     dgvLuong.Columns["LuongCoBan"].HeaderText = "Lương CB";
                     dgvLuong.Columns["PhuCap"].HeaderText = "Phụ cấp";
                     dgvLuong.Columns["TongLuong_VND"].HeaderText = "Tổng lương";
-                    dgvLuong.Columns["NgayApDung"].HeaderText = "Ngày áp dụng";
-                    dgvLuong.Columns["GhiChu"].HeaderText = "Ghi chú";
 
                     // Ẩn cột số
                     dgvLuong.Columns["TongLuong"].Visible = false;
@@ -367,7 +357,6 @@ namespace QuanLyNhanSu
         private void cboSapXep_SelectedIndexChanged(object sender, EventArgs e) { }
         private void dgvLuong_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void dgvLuong_CellContentClick_1(object sender, DataGridViewCellEventArgs e) { }
-
         private void radNu_CheckedChanged(object sender, EventArgs e)
         {
 
