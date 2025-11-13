@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanSu
 {
-    partial class Form1
+    partial class fManager
     {
         /// <summary>
         /// Required designer variable.
@@ -337,7 +337,7 @@
             this.dgvLuong.Size = new System.Drawing.Size(708, 258);
             this.dgvLuong.TabIndex = 1;
             // 
-            // Form1
+            // fManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -345,7 +345,7 @@
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
+            this.Name = "fManager";
             this.Text = "Quản lý nhân sự";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

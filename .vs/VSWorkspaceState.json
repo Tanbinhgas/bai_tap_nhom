@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Database\\Các thao tác SQL",
     "\\QuanLyNhanSu",
     "\\QuanLyNhanSu\\QuanLyNhanSu"
   ],
-  "SelectedNode": "\\QuanLyNhanSu\\QuanLyNhanSu.sln",
+  "SelectedNode": "\\QuanLyNhanSu\\QuanLyNhanSu\\Form1.cs",
   "PreviewInSolutionExplorer": false
 }

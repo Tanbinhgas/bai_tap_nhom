@@ -12,11 +12,11 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanSu
 {
-    public partial class Form1 : Form
+    public partial class fManager : Form
     {
         private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
 
-        public Form1()
+        public fManager()
         {
             InitializeComponent();
             LoadNhanVienFromDB();
@@ -203,6 +203,7 @@ namespace QuanLyNhanSu
                     cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
                     cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
+                    // TrangThai = 1 (đã có trong query)
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -213,7 +214,7 @@ namespace QuanLyNhanSu
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Lỗi thêm: " + ex.Message);
             }
         }
 
@@ -237,7 +238,8 @@ namespace QuanLyNhanSu
                             GioiTinh = @GioiTinh, 
                             Email = @Email, 
                             DiaChi = @DiaChi, 
-                            DienThoai = @DienThoai
+                            DienThoai = @DienThoai,
+                            TrangThai = 1
                         WHERE MaNV = @MaNVCu";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -248,19 +250,26 @@ namespace QuanLyNhanSu
                     cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@DiaChi", txtDiaChi.Text.Trim());
                     cmd.Parameters.AddWithValue("@DienThoai", txtPhone.Text.Trim());
-                    cmd.Parameters.AddWithValue("@MaNVCu", ViewState.MaNV); // DÙNG CHUỖI CŨ
+                    cmd.Parameters.AddWithValue("@MaNVCu", ViewState.MaNV);
 
                     conn.Open();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Sửa thành công!");
-                    LoadNhanVienFromDB();
-                    ClearInput();
-                    ViewState.MaNV = "";
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                    {
+                        MessageBox.Show("Sửa thành công!");
+                        LoadNhanVienFromDB();
+                        ClearInput();
+                        ViewState.MaNV = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên để sửa!");
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Lỗi sửa: " + ex.Message);
             }
         }
 
@@ -272,27 +281,50 @@ namespace QuanLyNhanSu
                 return;
             }
 
-            if (MessageBox.Show("Xóa nhân viên này?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Xóa nhân viên này? (Sẽ xóa toàn dữ liệu)", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        string query = "DELETE FROM NhanVien WHERE MaNV = @MaNV";
-                        SqlCommand cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@MaNV", ViewState.MaNV);
-
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Xóa thành công!");
-                        LoadNhanVienFromDB();
-                        ClearInput();
-                        ViewState.MaNV = "";
+                        using (SqlTransaction transaction = conn.BeginTransaction())
+                        {
+                            try
+                            {
+                                // XÓA LƯƠNG TRƯỚC
+                                string deleteLuong = "DELETE FROM Luong WHERE MaNV = @MaNV";
+                                using (SqlCommand cmd = new SqlCommand(deleteLuong, conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@MaNV", ViewState.MaNV);
+                                    cmd.ExecuteNonQuery();
+                                }
+
+                                // XÓA NHÂN VIÊN
+                                string deleteNV = "DELETE FROM NhanVien WHERE MaNV = @MaNV";
+                                using (SqlCommand cmd = new SqlCommand(deleteNV, conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@MaNV", ViewState.MaNV);
+                                    cmd.ExecuteNonQuery();
+                                }
+
+                                transaction.Commit();
+                                MessageBox.Show("Xóa thành công!");
+                                LoadNhanVienFromDB();
+                                ClearInput();
+                                ViewState.MaNV = "";
+                            }
+                            catch
+                            {
+                                transaction.Rollback();
+                                throw;
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message);
+                    MessageBox.Show("Lỗi xóa: " + ex.Message);
                 }
             }
         }
