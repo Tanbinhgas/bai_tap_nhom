@@ -14,7 +14,7 @@ namespace QuanLyNhanSu
 {
     public partial class fManager : Form
     {
-        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
 
         public fManager()
         {
@@ -126,29 +126,24 @@ namespace QuanLyNhanSu
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
-                        SELECT 
-                            pb.MaPhong,
-                            pb.TenPhong,
-                            pb.MoTa,
-                            COUNT(nv.MaNV) AS SoLuongNhanVien,
-                            CASE WHEN pb.TrangThai = 1 THEN N'Hoạt động' ELSE N'Ngừng' END AS TrangThai
-                        FROM dbo.PhongBan pb
-                        LEFT JOIN dbo.NhanVien nv ON pb.PhongBanID = nv.PhongBanID
-                        GROUP BY pb.MaPhong, pb.TenPhong, pb.MoTa, pb.TrangThai
-                        ORDER BY pb.MaPhong";
+                SELECT 
+                    pb.MaPhong,
+                    pb.TenPhong,
+                    COUNT(nv.MaNV) AS SoLuongNhanVien
+                FROM dbo.PhongBan pb
+                LEFT JOIN dbo.NhanVien nv ON pb.PhongBanID = nv.PhongBanID
+                GROUP BY pb.MaPhong, pb.TenPhong
+                ORDER BY pb.MaPhong";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dgvPhongBan.DataSource = dt;
 
-                    // ĐẶT TIÊU ĐỀ
+                    // ĐẶT TIÊU ĐỀ CHỈ CHO CÁC CỘT TỒN TẠI
                     dgvPhongBan.Columns["MaPhong"].HeaderText = "Mã phòng";
                     dgvPhongBan.Columns["TenPhong"].HeaderText = "Tên phòng";
-                    dgvPhongBan.Columns["MoTa"].HeaderText = "Mô tả";
                     dgvPhongBan.Columns["SoLuongNhanVien"].HeaderText = "Số NV";
-                    dgvPhongBan.Columns["TrangThai"].HeaderText = "Trạng thái";
-
                     dgvPhongBan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
             }
