@@ -45,6 +45,7 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.lblID = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnTimKiem = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
@@ -222,6 +223,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnTimKiem);
             this.groupBox2.Controls.Add(this.btnXoa);
             this.groupBox2.Controls.Add(this.btnSua);
             this.groupBox2.Controls.Add(this.btnThem);
@@ -232,9 +234,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chức năng";
             // 
+            // btnTimKiem
+            // 
+            this.btnTimKiem.Location = new System.Drawing.Point(20, 140);
+            this.btnTimKiem.Name = "btnTimKiem";
+            this.btnTimKiem.Size = new System.Drawing.Size(75, 25);
+            this.btnTimKiem.TabIndex = 5;
+            this.btnTimKiem.Text = "Tìm kiếm";
+            this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
+            // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(20, 138);
+            this.btnXoa.Location = new System.Drawing.Point(20, 100);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(75, 25);
             this.btnXoa.TabIndex = 4;
@@ -244,7 +256,7 @@
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(20, 78);
+            this.btnSua.Location = new System.Drawing.Point(20, 60);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(75, 25);
             this.btnSua.TabIndex = 3;
@@ -254,7 +266,7 @@
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(20, 21);
+            this.btnThem.Location = new System.Drawing.Point(20, 20);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(75, 25);
             this.btnThem.TabIndex = 2;
@@ -339,6 +351,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "fManager";
             this.Text = "Quản lý nhân sự";
+            this.Click += new System.EventHandler(this.fManager_Click);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -382,5 +395,6 @@
         private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabLuong;
         private System.Windows.Forms.DataGridView dgvLuong;
+        private System.Windows.Forms.Button btnTimKiem;
     }
 }
