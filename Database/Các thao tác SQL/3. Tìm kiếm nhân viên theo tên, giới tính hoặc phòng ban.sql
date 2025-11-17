@@ -1,17 +1,24 @@
 USE [QuanLyNhanVien];
 GO
+/* 3. Tìm kiếm nhân viên theo từ khóa: tên, giới tính hoặc phòng ban */
+DECLARE 
+    @tu_khoa   NVARCHAR(100) = N'Nguyễn',  -- Tìm trong họ tên
+    @gioitinh  NVARCHAR(10)  = N'Nam',     -- NULL = bỏ qua
+    @phongban  NVARCHAR(100) = NULL;       -- NULL = bỏ qua, hoặc N'Kinh Doanh'
 
-
-/* 3. Tìm kiếm nhân viên theo từ khoá: tên, giới tính hoặc phòng ban (ví dụ dùng biến) */
--- Thay giá trị trong WHERE theo nhu cầu
-DECLARE @tu_khoa NVARCHAR(100) = N'Nguyễn'; -- tìm theo tên
-DECLARE @gioitinh NVARCHAR(10) = N'Nam';    -- hoặc NULL nếu bỏ điều kiện
-DECLARE @phongban NVARCHAR(100) = NULL;     -- hoặc N'Phòng Kế Toán'
-
-SELECT nv.NhanVienID, nv.HoTen, nv.GioiTinh, pb.TenPhong, nv.ChucVu, nv.NgayVaoLam
+SELECT 
+    nv.MaNV,
+    nv.HoTen,
+    nv.GioiTinh,
+    pb.MaPhong,
+    pb.TenPhong,
+    FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' ₫' AS TongLuong
 FROM dbo.NhanVien nv
 LEFT JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
-WHERE (@tu_khoa IS NULL OR nv.HoTen LIKE '%' + @tu_khoa + '%')
-  AND (@gioitinh IS NULL OR nv.GioiTinh = @gioitinh)
-  AND (@phongban IS NULL OR pb.TenPhong = @phongban);
+LEFT JOIN dbo.Luong l ON nv.MaNV = l.MaNV
+WHERE 
+    (@tu_khoa IS NULL OR nv.HoTen LIKE N'%' + @tu_khoa + N'%')
+    AND (@gioitinh IS NULL OR nv.GioiTinh = @gioitinh)
+    AND (@phongban IS NULL OR pb.TenPhong LIKE N'%' + @phongban + N'%')  -- Linh hoạt hơn
+ORDER BY nv.HoTen;
 GO

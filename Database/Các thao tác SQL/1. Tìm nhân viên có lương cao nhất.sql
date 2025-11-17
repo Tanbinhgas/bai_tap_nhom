@@ -1,31 +1,17 @@
-USE [QuanLyNhanVien]
+USE [QuanLyNhanVien];
 GO
-
-/* TÌM NHÂN VIÊN CÓ LƯƠNG CAO NHẤT */
-WITH LuongMoiNhat AS (
-    -- LẤY BẢN GHI LƯƠNG MỚI NHẤT CỦA MỖI NHÂN VIÊN
-    SELECT 
-        NhanVienID,
-        LuongID,
-        LuongCoBan,
-        PhuCap,
-        NgayApDung,
-        ROW_NUMBER() OVER (PARTITION BY NhanVienID ORDER BY NgayApDung DESC) AS RN
-    FROM dbo.Luong
-)
+/* TÌM NHÂN VIÊN CÓ TỔNG LƯƠNG CAO NHẤT */
 SELECT TOP 1
     nv.MaNV,
     nv.HoTen,
-    FORMAT(lmn.LuongCoBan, 'N0') + ' ₫' AS LuongCoBan,
-    FORMAT(lmn.PhuCap, 'N0') + ' ₫' AS PhuCap,
-    (lmn.LuongCoBan + ISNULL(lmn.PhuCap, 0)) AS TongLuong,
-    FORMAT(lmn.LuongCoBan + ISNULL(lmn.PhuCap, 0), 'N0') + ' ₫' AS TongLuong_VND,
-    lmn.NgayApDung,
-    pb.TenPhong AS PhongBan,
-    nv.ChucVu
-FROM LuongMoiNhat lmn
-JOIN dbo.NhanVien nv ON lmn.NhanVienID = nv.NhanVienID
-JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
-WHERE lmn.RN = 1  -- Chỉ lấy bản ghi mới nhất
-ORDER BY (lmn.LuongCoBan + ISNULL(lmn.PhuCap, 0)) DESC;
+    FORMAT(l.LuongCoBan, 'N0') + ' VND' AS LuongCoBan,
+    FORMAT(ISNULL(l.PhuCap, 0), 'N0') + ' VND' AS PhuCap,
+    (l.LuongCoBan + ISNULL(l.PhuCap, 0)) AS TongLuong,
+    FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' VND' AS TongLuong_VND,
+    pb.TenPhong AS PhongBan
+
+FROM dbo.Luong l
+INNER JOIN dbo.NhanVien nv ON l.MaNV = nv.MaNV
+INNER JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
+ORDER BY (l.LuongCoBan + ISNULL(l.PhuCap, 0)) DESC;
 GO
