@@ -407,11 +407,6 @@ namespace QuanLyNhanSu
 
         }
 
-        private void fManager_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             using (fTimKiem frm = new fTimKiem())

@@ -351,7 +351,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "fManager";
             this.Text = "Quản lý nhân sự";
-            this.Click += new System.EventHandler(this.fManager_Click);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
