@@ -11,7 +11,7 @@ SELECT TOP 3
             THEN 1 ELSE 0 
         END AS Tuoi,
     pb.TenPhong,
-    FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' ₫' AS TongLuong
+    FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' VND' AS TongLuong
 FROM dbo.NhanVien nv
 INNER JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
 LEFT JOIN dbo.Luong l ON nv.MaNV = l.MaNV

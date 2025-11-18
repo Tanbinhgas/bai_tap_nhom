@@ -13,7 +13,7 @@ namespace QuanLyNhanSu
 {
     public partial class Form3 : Form
     {
-        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
 
         public string MaNV { get; set; }
         public string HoTen { get; set; }

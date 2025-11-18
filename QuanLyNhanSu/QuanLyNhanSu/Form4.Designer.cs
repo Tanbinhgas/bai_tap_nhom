@@ -43,12 +43,22 @@
             this.lblHoTen = new System.Windows.Forms.Label();
             this.txtMaNV = new System.Windows.Forms.TextBox();
             this.lblMaNV = new System.Windows.Forms.Label();
+            this.gbTimKiemNhanh = new System.Windows.Forms.GroupBox();
+            this.btnTongLuong = new System.Windows.Forms.Button();
+            this.btnLuongTB = new System.Windows.Forms.Button();
+            this.btnTopThap = new System.Windows.Forms.Button();
+            this.btnTopCao = new System.Windows.Forms.Button();
+            this.rbNamChan = new System.Windows.Forms.RadioButton();
+            this.rbNamLe = new System.Windows.Forms.RadioButton();
+            this.rbNu = new System.Windows.Forms.RadioButton();
+            this.rbNam = new System.Windows.Forms.RadioButton();
             this.gbLuong.SuspendLayout();
+            this.gbTimKiemNhanh.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnHuy
             // 
-            this.btnHuy.Location = new System.Drawing.Point(158, 228);
+            this.btnHuy.Location = new System.Drawing.Point(390, 187);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(75, 23);
             this.btnHuy.TabIndex = 26;
@@ -58,7 +68,7 @@
             // 
             // btnTim
             // 
-            this.btnTim.Location = new System.Drawing.Point(239, 228);
+            this.btnTim.Location = new System.Drawing.Point(471, 187);
             this.btnTim.Name = "btnTim";
             this.btnTim.Size = new System.Drawing.Size(75, 23);
             this.btnTim.TabIndex = 25;
@@ -183,11 +193,117 @@
             this.lblMaNV.TabIndex = 18;
             this.lblMaNV.Text = "Mã NV:";
             // 
+            // gbTimKiemNhanh
+            // 
+            this.gbTimKiemNhanh.Controls.Add(this.btnTongLuong);
+            this.gbTimKiemNhanh.Controls.Add(this.btnLuongTB);
+            this.gbTimKiemNhanh.Controls.Add(this.btnTopThap);
+            this.gbTimKiemNhanh.Controls.Add(this.btnTopCao);
+            this.gbTimKiemNhanh.Controls.Add(this.rbNamChan);
+            this.gbTimKiemNhanh.Controls.Add(this.rbNamLe);
+            this.gbTimKiemNhanh.Controls.Add(this.rbNu);
+            this.gbTimKiemNhanh.Controls.Add(this.rbNam);
+            this.gbTimKiemNhanh.Location = new System.Drawing.Point(327, 12);
+            this.gbTimKiemNhanh.Name = "gbTimKiemNhanh";
+            this.gbTimKiemNhanh.Size = new System.Drawing.Size(219, 153);
+            this.gbTimKiemNhanh.TabIndex = 27;
+            this.gbTimKiemNhanh.TabStop = false;
+            this.gbTimKiemNhanh.Text = "Tìm kiếm nhanh";
+            // 
+            // btnTongLuong
+            // 
+            this.btnTongLuong.Location = new System.Drawing.Point(112, 107);
+            this.btnTongLuong.Name = "btnTongLuong";
+            this.btnTongLuong.Size = new System.Drawing.Size(95, 37);
+            this.btnTongLuong.TabIndex = 7;
+            this.btnTongLuong.Text = "Tổng lương công ty phải trả";
+            this.btnTongLuong.UseVisualStyleBackColor = true;
+            this.btnTongLuong.Click += new System.EventHandler(this.btnTongLuong_Click);
+            // 
+            // btnLuongTB
+            // 
+            this.btnLuongTB.Location = new System.Drawing.Point(7, 108);
+            this.btnLuongTB.Name = "btnLuongTB";
+            this.btnLuongTB.Size = new System.Drawing.Size(95, 37);
+            this.btnLuongTB.TabIndex = 6;
+            this.btnLuongTB.Text = "Lương trung bình công ty";
+            this.btnLuongTB.UseVisualStyleBackColor = true;
+            this.btnLuongTB.Click += new System.EventHandler(this.btnLuongTB_Click);
+            // 
+            // btnTopThap
+            // 
+            this.btnTopThap.Location = new System.Drawing.Point(112, 65);
+            this.btnTopThap.Name = "btnTopThap";
+            this.btnTopThap.Size = new System.Drawing.Size(100, 37);
+            this.btnTopThap.TabIndex = 5;
+            this.btnTopThap.Text = "Top lương thấp nhất từng phòng";
+            this.btnTopThap.UseVisualStyleBackColor = true;
+            this.btnTopThap.Click += new System.EventHandler(this.btnTopThap_Click);
+            // 
+            // btnTopCao
+            // 
+            this.btnTopCao.Location = new System.Drawing.Point(6, 65);
+            this.btnTopCao.Name = "btnTopCao";
+            this.btnTopCao.Size = new System.Drawing.Size(95, 37);
+            this.btnTopCao.TabIndex = 4;
+            this.btnTopCao.Text = "Top lương cao nhất từng phòng";
+            this.btnTopCao.UseVisualStyleBackColor = true;
+            this.btnTopCao.Click += new System.EventHandler(this.btnTopCao_Click);
+            // 
+            // rbNamChan
+            // 
+            this.rbNamChan.AutoSize = true;
+            this.rbNamChan.Location = new System.Drawing.Point(6, 42);
+            this.rbNamChan.Name = "rbNamChan";
+            this.rbNamChan.Size = new System.Drawing.Size(96, 17);
+            this.rbNamChan.TabIndex = 3;
+            this.rbNamChan.TabStop = true;
+            this.rbNamChan.Text = "Sinh năm chẵn";
+            this.rbNamChan.UseVisualStyleBackColor = true;
+            this.rbNamChan.CheckedChanged += new System.EventHandler(this.rbNamChan_CheckedChanged);
+            // 
+            // rbNamLe
+            // 
+            this.rbNamLe.AutoSize = true;
+            this.rbNamLe.Location = new System.Drawing.Point(112, 42);
+            this.rbNamLe.Name = "rbNamLe";
+            this.rbNamLe.Size = new System.Drawing.Size(80, 17);
+            this.rbNamLe.TabIndex = 2;
+            this.rbNamLe.TabStop = true;
+            this.rbNamLe.Text = "Sinh năm lẻ";
+            this.rbNamLe.UseVisualStyleBackColor = true;
+            this.rbNamLe.CheckedChanged += new System.EventHandler(this.rbNamLe_CheckedChanged);
+            // 
+            // rbNu
+            // 
+            this.rbNu.AutoSize = true;
+            this.rbNu.Location = new System.Drawing.Point(112, 19);
+            this.rbNu.Name = "rbNu";
+            this.rbNu.Size = new System.Drawing.Size(39, 17);
+            this.rbNu.TabIndex = 1;
+            this.rbNu.TabStop = true;
+            this.rbNu.Text = "Nữ";
+            this.rbNu.UseVisualStyleBackColor = true;
+            this.rbNu.CheckedChanged += new System.EventHandler(this.rbNu_CheckedChanged);
+            // 
+            // rbNam
+            // 
+            this.rbNam.AutoSize = true;
+            this.rbNam.Location = new System.Drawing.Point(6, 19);
+            this.rbNam.Name = "rbNam";
+            this.rbNam.Size = new System.Drawing.Size(47, 17);
+            this.rbNam.TabIndex = 0;
+            this.rbNam.TabStop = true;
+            this.rbNam.Text = "Nam";
+            this.rbNam.UseVisualStyleBackColor = true;
+            this.rbNam.CheckedChanged += new System.EventHandler(this.rbNam_CheckedChanged);
+            // 
             // fTimKiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 261);
+            this.ClientSize = new System.Drawing.Size(555, 220);
+            this.Controls.Add(this.gbTimKiemNhanh);
             this.Controls.Add(this.btnHuy);
             this.Controls.Add(this.btnTim);
             this.Controls.Add(this.gbLuong);
@@ -202,6 +318,8 @@
             this.Load += new System.EventHandler(this.fTimKiem_Load_1);
             this.gbLuong.ResumeLayout(false);
             this.gbLuong.PerformLayout();
+            this.gbTimKiemNhanh.ResumeLayout(false);
+            this.gbTimKiemNhanh.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,5 +342,14 @@
         private System.Windows.Forms.Label lblHoTen;
         private System.Windows.Forms.TextBox txtMaNV;
         private System.Windows.Forms.Label lblMaNV;
+        private System.Windows.Forms.GroupBox gbTimKiemNhanh;
+        private System.Windows.Forms.RadioButton rbNu;
+        private System.Windows.Forms.RadioButton rbNam;
+        private System.Windows.Forms.Button btnTopThap;
+        private System.Windows.Forms.Button btnTopCao;
+        private System.Windows.Forms.RadioButton rbNamChan;
+        private System.Windows.Forms.RadioButton rbNamLe;
+        private System.Windows.Forms.Button btnTongLuong;
+        private System.Windows.Forms.Button btnLuongTB;
     }
 }

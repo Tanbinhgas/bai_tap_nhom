@@ -13,12 +13,60 @@ namespace QuanLyNhanSu
 {
     public partial class fTimKiem : Form
     {
-        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
         public DataTable KetQuaTimKiem { get; private set; } = new DataTable();
 
         public fTimKiem()
         {
             InitializeComponent();
+        }
+
+        private void TimKiemNhanh(string dieuKienWhere)
+        {
+            string query = $@"
+                SELECT 
+                    nv.MaNV, 
+                    nv.HoTen, 
+                    nv.GioiTinh, 
+                    YEAR(nv.NgaySinh) AS NamSinh,
+                    pb.TenPhong,
+                    ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0) AS TongLuong
+                FROM NhanVien nv
+                LEFT JOIN PhongBan pb ON nv.PhongBanID = pb.PhongBanID
+                LEFT JOIN Luong l ON nv.MaNV = l.MaNV
+                WHERE {dieuKienWhere}";
+
+            HienThiKetQua(query, "Tìm nhanh");
+        }
+
+        private void HienThiKetQua(string query, string tieuDe)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    conn.Open();
+                    adapter.Fill(dt);
+                    conn.Close();
+
+                    fManager mainForm = Application.OpenForms["fManager"] as fManager;
+                    if (mainForm != null)
+                    {
+                        mainForm.HienThiKetQuaTimKiemNhanh(dt, tieuDe);
+                        this.Close(); // Đóng Form4 luôn cho gọn
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy form chính!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
         }
 
         private void LoadPhongBan()
@@ -154,6 +202,79 @@ namespace QuanLyNhanSu
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 e.Handled = true;
+        }
+
+        private void rbNam_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbNam.Checked) TimKiemNhanh("GioiTinh = 'Nam'");
+        }
+
+        private void rbNu_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbNu.Checked) TimKiemNhanh("GioiTinh = 'Nữ'");
+        }
+
+        private void rbNamChan_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbNamChan.Checked) TimKiemNhanh("YEAR(NgaySinh) % 2 = 0");
+        }
+
+        private void rbNamLe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbNamLe.Checked) TimKiemNhanh("YEAR(NgaySinh) % 2 = 1");
+        }
+
+        private void btnTopCao_Click(object sender, EventArgs e)
+        {
+            string query = @"
+                SELECT pb.TenPhong, nv.HoTen, (ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0)) AS TongLuong
+                FROM NhanVien nv
+                LEFT JOIN Luong l ON nv.MaNV = l.MaNV
+                LEFT JOIN PhongBan pb ON nv.PhongBanID = pb.PhongBanID
+                WHERE (ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0)) = (
+                    SELECT MAX(ISNULL(l2.LuongCoBan,0) + ISNULL(l2.PhuCap,0))
+                    FROM NhanVien nv2
+                    LEFT JOIN Luong l2 ON nv2.MaNV = l2.MaNV
+                    WHERE nv2.PhongBanID = nv.PhongBanID
+                )";
+            HienThiKetQua(query, "Top lương cao nhất từng phòng");
+        }
+
+        private void btnTopThap_Click(object sender, EventArgs e)
+        {
+            string query = @"
+                SELECT pb.TenPhong, nv.HoTen, (ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0)) AS TongLuong
+                FROM NhanVien nv
+                LEFT JOIN Luong l ON nv.MaNV = l.MaNV
+                LEFT JOIN PhongBan pb ON nv.PhongBanID = pb.PhongBanID
+                WHERE (ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0)) = (
+                    SELECT MIN(ISNULL(l2.LuongCoBan,0) + ISNULL(l2.PhuCap,0))
+                    FROM NhanVien nv2
+                    LEFT JOIN Luong l2 ON nv2.MaNV = l2.MaNV
+                    WHERE nv2.PhongBanID = nv.PhongBanID
+                    AND (ISNULL(l2.LuongCoBan,0) + ISNULL(l2.PhuCap,0)) > 0
+                )";
+            HienThiKetQua(query, "Top lương thấp nhất từng phòng");
+        }
+
+        private void btnLuongTB_Click(object sender, EventArgs e)
+        {
+            string query = @"
+                SELECT 
+                    AVG(ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0)) AS LuongTrungBinh
+                FROM NhanVien nv
+                LEFT JOIN Luong l ON nv.MaNV = l.MaNV";
+            HienThiKetQua(query, "Lương trung bình công ty");
+        }
+
+        private void btnTongLuong_Click(object sender, EventArgs e)
+        {
+            string query = @"
+                SELECT 
+                    SUM(ISNULL(l.LuongCoBan,0) + ISNULL(l.PhuCap,0)) AS TongLuongPhaiTra
+                FROM NhanVien nv
+                LEFT JOIN Luong l ON nv.MaNV = l.MaNV";
+            HienThiKetQua(query, "Tổng lương công ty phải trả");
         }
     }
 }

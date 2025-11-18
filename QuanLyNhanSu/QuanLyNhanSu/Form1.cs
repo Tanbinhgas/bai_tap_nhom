@@ -14,7 +14,7 @@ namespace QuanLyNhanSu
 {
     public partial class fManager : Form
     {
-        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
 
         public fManager()
         {
@@ -94,8 +94,8 @@ namespace QuanLyNhanSu
                     dgvLuong.Columns["TongLuong"].Visible = false;
 
                     // Định dạng tiền
-                    dgvLuong.Columns["LuongCoBan"].DefaultCellStyle.Format = "N0";
-                    dgvLuong.Columns["PhuCap"].DefaultCellStyle.Format = "N0";
+                    dgvLuong.Columns["LuongCoBan"].DefaultCellStyle.Format = "N0 'VND'";
+                    dgvLuong.Columns["PhuCap"].DefaultCellStyle.Format = "N0 'VND'";
                     dgvLuong.Columns["LuongCoBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     dgvLuong.Columns["PhuCap"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -392,6 +392,41 @@ namespace QuanLyNhanSu
             }
         }
 
+        public void HienThiKetQuaTimKiemNhanh(DataTable dt, string tieuDe)
+        {
+            tabMain.SelectedTab = tabNhanVien;
+
+            dgvNhanVien.DataSource = dt;
+
+            // === ĐỊNH DẠNG CỘT TIỀN TỆ ===
+            foreach (DataGridViewColumn col in dgvNhanVien.Columns)
+            {
+                if (col.Name.IndexOf("Luong", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    col.Name.IndexOf("Tong", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    col.Name.IndexOf("PhaiTra", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    col.DefaultCellStyle.Format = "N0 'VND'";
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                    // Đổi tên cột cho đẹp
+                    if (col.HeaderText.Contains("TongLuongPhaiTra"))
+                        col.HeaderText = "Tổng lương phải trả";
+                    else if (col.HeaderText.Contains("LuongTrungBinh"))
+                        col.HeaderText = "Lương trung bình";
+                }
+            }
+            // === KẾT THÚC PHẦN MỚI ===
+
+            this.Text = $"Quản lý nhân sự - [{tieuDe}] Tìm thấy {dt.Rows.Count} kết quả";
+
+            MessageBox.Show(
+                $"Đã tìm thấy {dt.Rows.Count} nhân viên!\nĐang hiển thị trong tab 'Nhân viên'",
+                tieuDe,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
+
         public static class ViewState
         {
             public static string MaNV { get; set; } = "";
@@ -405,40 +440,6 @@ namespace QuanLyNhanSu
         private void radNu_CheckedChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
-            using (fTimKiem frm = new fTimKiem())
-            {
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    if (frm.KetQuaTimKiem.Rows.Count > 0)
-                    {
-                        // HIỂN THỊ KẾT QUẢ TRONG DATAGRIDVIEW
-                        dgvNhanVien.DataSource = frm.KetQuaTimKiem;
-
-                        // THÔNG BÁO
-                        MessageBox.Show(
-                            $"Tìm thấy {frm.KetQuaTimKiem.Rows.Count} nhân viên phù hợp!",
-                            "Kết quả tìm kiếm",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
-                    }
-                    else
-                    {
-                        // KHÔNG CÓ KẾT QUẢ
-                        dgvNhanVien.DataSource = null;
-                        MessageBox.Show(
-                            "Không tìm thấy nhân viên nào phù hợp với điều kiện!",
-                            "Thông báo",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
-                    }
-                }
-            }
         }
     }
 }

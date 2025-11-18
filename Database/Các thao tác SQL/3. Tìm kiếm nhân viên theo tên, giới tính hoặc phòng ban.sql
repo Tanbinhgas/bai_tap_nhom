@@ -12,13 +12,13 @@ SELECT
     nv.GioiTinh,
     pb.MaPhong,
     pb.TenPhong,
-    FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' ₫' AS TongLuong
+    FORMAT(l.LuongCoBan + ISNULL(l.PhuCap, 0), 'N0') + ' VND' AS TongLuong
 FROM dbo.NhanVien nv
 LEFT JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
 LEFT JOIN dbo.Luong l ON nv.MaNV = l.MaNV
 WHERE 
     (@tu_khoa IS NULL OR nv.HoTen LIKE N'%' + @tu_khoa + N'%')
     AND (@gioitinh IS NULL OR nv.GioiTinh = @gioitinh)
-    AND (@phongban IS NULL OR pb.TenPhong LIKE N'%' + @phongban + N'%')  -- Linh hoạt hơn
+    AND (@phongban IS NULL OR pb.TenPhong LIKE N'%' + @phongban + N'%')
 ORDER BY nv.HoTen;
 GO
