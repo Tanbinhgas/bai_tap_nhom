@@ -14,7 +14,7 @@ namespace QuanLyNhanSu
 {
     public partial class fManager : Form
     {
-        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
 
         public fManager()
         {
@@ -425,6 +425,40 @@ namespace QuanLyNhanSu
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            using (fTimKiem frm = new fTimKiem())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    if (frm.KetQuaTimKiem.Rows.Count > 0)
+                    {
+                        // HIỂN THỊ KẾT QUẢ TRONG DATAGRIDVIEW
+                        dgvNhanVien.DataSource = frm.KetQuaTimKiem;
+
+                        // THÔNG BÁO
+                        MessageBox.Show(
+                            $"Tìm thấy {frm.KetQuaTimKiem.Rows.Count} nhân viên phù hợp!",
+                            "Kết quả tìm kiếm",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    else
+                    {
+                        // KHÔNG CÓ KẾT QUẢ
+                        dgvNhanVien.DataSource = null;
+                        MessageBox.Show(
+                            "Không tìm thấy nhân viên nào phù hợp với điều kiện!",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                }
+            }
         }
 
         public static class ViewState

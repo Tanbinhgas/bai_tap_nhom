@@ -13,7 +13,7 @@ namespace QuanLyNhanSu
 {
     public partial class fTimKiem : Form
     {
-        private string connectionString = "Server=PC100TOI;Database=QuanLyNhanVien;Trusted_Connection=True;";
+        private string connectionString = "Server=LAPTOP100TOI\\SQL_PROJECT;Database=QuanLyNhanVien;Trusted_Connection=True;";
         public DataTable KetQuaTimKiem { get; private set; } = new DataTable();
 
         public fTimKiem()

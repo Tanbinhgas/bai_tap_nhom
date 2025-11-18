@@ -14,4 +14,3 @@ INNER JOIN dbo.NhanVien nv ON l.MaNV = nv.MaNV
 INNER JOIN dbo.PhongBan pb ON nv.PhongBanID = pb.PhongBanID
 ORDER BY (l.LuongCoBan + ISNULL(l.PhuCap, 0)) DESC, nv.MaNV;
 GO
-5
