@@ -36,7 +36,7 @@ INSERT INTO dbo.Luong (MaNV, LuongCoBan, PhuCap) VALUES
 ('NV1010', 30000000, 4000000);
 GO
 
--- XEM BẢNG LƯƠNG ĐẸP
+-- XEM BẢNG LƯƠNG
 SELECT
     nv.MaNV AS [Mã NV],
     nv.HoTen AS [Họ tên],

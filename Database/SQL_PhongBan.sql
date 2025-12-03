@@ -10,7 +10,6 @@ CREATE TABLE dbo.PhongBan (
     PhongBanID INT IDENTITY(1,1) PRIMARY KEY,
     MaPhong AS 'PB' + RIGHT('000' + CAST(PhongBanID AS VARCHAR(3)), 3) PERSISTED,
     TenPhong NVARCHAR(100) NOT NULL UNIQUE,
-    TrangThai BIT DEFAULT 1
 );
 GO
 
